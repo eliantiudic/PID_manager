@@ -1,5 +1,5 @@
 
-import thread
+import threading
 import time
 import random
 
@@ -19,7 +19,7 @@ def allocate_map ():
     if len(pid_list) == 0:
         return -1
 
-    print ("Successful map allocation", end =" ")
+    print ("Successful map allocation", end ="\n")
     return 1
 
 # this function allocates and returns a pid
@@ -41,7 +41,7 @@ def allocate_pid ():
         print("No more pids available")
         return -1
     
-    print("Pid allocated successfully", end=" ")
+    print("Pid " + str(i+300) + " allocated successfully", end="\n")
     return i+300
 
 # this function releases a pid
@@ -49,13 +49,13 @@ def release_pid (pid):
     pid_list[pid-300]=0
     print ("Pid " + str(pid)+" was released")
 
+allocate_map()
 
 def create_process():
-    pid = allocate_pid
-    time.sleep(random.randint(1,5))
+    pid = allocate_pid()
+    time.sleep(random.uniform(0.5,2.0))
     release_pid(pid)
 
-try:
-    thread.start_new_thread(create_process)
-except:
-    print ("unable to start thread")
+for i in range (100):
+    x = threading.Thread(target = create_process)
+    x.start()
