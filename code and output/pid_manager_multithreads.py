@@ -53,7 +53,7 @@ allocate_map()
 
 def create_process():
     pid = allocate_pid()
-    time.sleep(random.uniform(0.5,2.0))
+    time.sleep(random.uniform(0.5,2.5))
     release_pid(pid)
 
 for i in range (100):
